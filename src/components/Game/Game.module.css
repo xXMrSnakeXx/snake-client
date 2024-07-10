@@ -1,69 +1,11 @@
-.cell {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--color-primary);
-  margin: 2px;
-}
-
-.row {
-  display: flex;
-}
-
-.food {
-  background-color: var(--color-accent);
-}
-
-.snake {
-  background-color: var(--color-snake);
-}
-
 .container {
   display: flex;
   flex-direction: column;
   width: 460px;
 }
-.game_container{
-border: 3px solid var(--color-gray);
-border-radius: 5px;
-box-shadow: var(--shadow-regular);
-margin-bottom: 20px;
-
-}
-.controller_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.arrow {
-  height: 50px;
-  width: 50px;
-  background: url('./arrow.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: 2px solid var(--color-gray);
-  margin: 5px;
-
-}
-
-.selected {
-  /* -webkit-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.86);
-  -moz-box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.86); */
-  /* box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.86); */
-  box-shadow: var( --shadow-regular);
-}
-
-.up {
-  transform: rotate(270deg);
-}
-
-.right {
-}
-
-.down {
-  transform: rotate(90deg);
-}
-
-.left {
-  transform: rotate(180deg);
+.game_container {
+  border: 3px solid var(--color-gray);
+  border-radius: 5px;
+  box-shadow: var(--shadow-regular);
+  margin-bottom: 20px;
 }
