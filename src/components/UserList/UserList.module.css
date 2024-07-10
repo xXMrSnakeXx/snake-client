@@ -1,0 +1,40 @@
+
+.title {
+  margin-bottom: 10px;
+  font-size: var(--font-large);
+  color: var(--color-primary);
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 420px;
+  height: 420px;
+  overflow-y: scroll;
+  color: var(--color-light);
+  margin-left: auto;
+  padding: 20px;
+  border: 1px solid var(--color-gray);
+  border-radius: 5px;
+  box-shadow: var(--shadow-regular);
+}
+.list::-webkit-scrollbar {
+  width: 12px;
+  border-radius: 5px;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 5px;
+}
+.list::-webkit-scrollbar-track {
+  background: var(--color-gray);
+  border-radius: 5px;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.item span{
+    font-size: var(--font-medium);
+}
