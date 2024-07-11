@@ -19,6 +19,7 @@
   .error {
     composes: title;
     color: var(--color-error);
+    margin-bottom: 15px;
   }
   
   .info {
