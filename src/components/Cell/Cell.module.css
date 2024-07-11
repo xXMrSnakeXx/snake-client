@@ -10,11 +10,15 @@
 
 border-radius: 50%;
   }
-  .food {
+  .food1 {
     background-color: var(--color-accent);
-
   }
-  
+  .food5{
+    background-color: var(--color-error)
+  }
+  .food10{
+    background-color: var(--color-food)
+  }
   .snake {
     background-color: var(--color-snake);
  
