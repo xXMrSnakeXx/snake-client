@@ -1,28 +1,28 @@
 .title {
-    font-size: var(--font-large);
-    font-weight: 700;
-    color: var(--color-dark);
-  
-    text-align: center;
-  
-    position: relative;
-  }
-  
-  .top {
-    margin-top: 50px;
-  }
-  
-  .bottom {
-    margin-bottom: 50px;
-  }
-  
-  .error {
-    composes: title;
-    color: var(--color-error);
-    margin-bottom: 15px;
-  }
-  
-  .info {
-    composes: title;
-    color: #adcb28;
-  }
+  font-size: var(--font-large);
+  font-weight: 700;
+  color: var(--color-dark);
+
+  text-align: center;
+
+  position: relative;
+}
+
+.top {
+  margin-top: 50px;
+}
+
+.bottom {
+  margin-bottom: 50px;
+}
+
+.error {
+  composes: title;
+  color: var(--color-error);
+  margin-bottom: 15px;
+}
+
+.info {
+  composes: title;
+  color: #adcb28;
+}

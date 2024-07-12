@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import css from "./UserForm.module.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Button } from "../Button/Button";
+import { useUsersStore } from "../../store/useUsersStore";
 
 const initialValues = {
   name: "",
@@ -12,10 +13,12 @@ const validationSchema = Yup.object().shape({
     .matches(/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/)
     .required("Required"),
 });
-export const UserForm = ({ onSubmit }) => {
+export const UserForm = ({ closeModal }) => {
+  const { addUserName } = useUsersStore();
   const nameId = useId();
   const handleSubmit = (values, { resetForm }) => {
-    onSubmit(values);
+    addUserName(values);
+    closeModal();
     resetForm();
   };
   return (

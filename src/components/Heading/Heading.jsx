@@ -13,5 +13,5 @@ export const Heading = ({ title, top, bottom, error, info }) => {
     >
       {title}
     </h2>
-  )
-}
+  );
+};
