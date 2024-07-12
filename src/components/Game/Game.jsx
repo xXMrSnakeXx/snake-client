@@ -7,6 +7,7 @@ import { generateFood } from "../../helpers/generateFood";
 import { generateMove } from "../../helpers/generateMove";
 import { Heading } from "../Heading/Heading";
 import { Button } from "../Button/Button";
+import { addScore } from "../../services/api";
 
 const BOARD_SIZE = 10;
 const DEFAULT_CELL_VALUE = Array(BOARD_SIZE).fill(Array(BOARD_SIZE).fill(0));
@@ -18,7 +19,7 @@ const FOOD_TYPES = [
   { type: "food10", points: 10 },
 ];
 
-export const Game = () => {
+export const Game = ({ userName }) => {
   const [direction, setDirection] = useState(AVAILABLE_MOVIES[0]);
   const [snake, setSnake] = useState([[1, 1]]);
   const [food, setFood] = useState(generateFood(BOARD_SIZE, snake, FOOD_TYPES));
@@ -28,11 +29,12 @@ export const Game = () => {
   const [speedLevel, setSpeedLevel] = useState(1);
   const [gameOver, setGameOver] = useState(false);
   const [pause, setPause] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleKeyDown = (e) => {
-    e.preventDefault();
     const index = AVAILABLE_MOVIES.indexOf(e.key);
     if (index > -1) {
+      e.preventDefault();
       setDirection(AVAILABLE_MOVIES[index]);
     }
   };
@@ -43,7 +45,7 @@ export const Game = () => {
   }, []);
 
   useEffect(() => {
-    if (gameOver || pause) return;
+    if (gameOver || pause || !userName) return;
     const interval = setInterval(() => {
       const newSnake = [...snake];
       const move = generateMove(direction, AVAILABLE_MOVIES);
@@ -83,7 +85,22 @@ export const Game = () => {
     score,
     snake,
     speed,
+    userName,
   ]);
+
+  useEffect(() => {
+    const updateScore = async () => {
+      try {
+        await addScore(userName, score);
+      } catch (error) {
+        setError(error);
+      }
+    };
+    if (gameOver) {
+      updateScore();
+      
+    }
+  }, [gameOver, score, userName]);
 
   const restart = () => {
     setGameOver(false);
@@ -99,14 +116,15 @@ export const Game = () => {
 
   return (
     <div className={css.container}>
-      <Button onClick={gameOver ? restart : tooglePause}>
+      <Button onClick={gameOver ? restart : tooglePause} type="button">
         {gameOver ? "Restar" : pause ? "Start" : "Stop"}
       </Button>
 
       <h2 className={css.title}>
-        Your progress : {score} Speed level: {speedLevel}
+        {userName} progress : {score} Speed level: {speedLevel}
       </h2>
       {gameOver && <Heading error title="Game over 😐 Try again!" />}
+      {error && <Heading error title={`Something went wrong...😐`} />}
       <div className={css.game_container}>
         {DEFAULT_CELL_VALUE.map((row, indexX) => (
           <Row

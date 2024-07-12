@@ -4,10 +4,10 @@ export const UserList = ({ users }) => {
     <div>
       <h2 className={css.title}>Player rating</h2>
       <ul className={css.list}>
-        {users.map(({ id, name, progress }) => (
+        {users.map(({ id, user_name, score }) => (
           <li key={id} className={css.item}>
-            <h2> {name} :</h2>
-            <span>{progress ? progress.score : 0 }</span>
+            <h2> {user_name} :</h2>
+            <span>{score}</span>
           </li>
         ))}
       </ul>
