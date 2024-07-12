@@ -8,18 +8,19 @@ import { generateMove } from "../../helpers/generateMove";
 import { Heading } from "../Heading/Heading";
 import { Button } from "../Button/Button";
 import { addScore } from "../../services/api";
+import { useUsersStore } from "../../store/useUsersStore";
 
 const BOARD_SIZE = 10;
 const DEFAULT_CELL_VALUE = Array(BOARD_SIZE).fill(Array(BOARD_SIZE).fill(0));
 const AVAILABLE_MOVIES = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft"];
-// const SPEED = 500;
+
 const FOOD_TYPES = [
   { type: "food1", points: 1 },
   { type: "food5", points: 5 },
   { type: "food10", points: 10 },
 ];
 
-export const Game = ({ userName }) => {
+export const Game = () => {
   const [direction, setDirection] = useState(AVAILABLE_MOVIES[0]);
   const [snake, setSnake] = useState([[1, 1]]);
   const [food, setFood] = useState(generateFood(BOARD_SIZE, snake, FOOD_TYPES));
@@ -30,6 +31,7 @@ export const Game = ({ userName }) => {
   const [gameOver, setGameOver] = useState(false);
   const [pause, setPause] = useState(false);
   const [error, setError] = useState(null);
+  const { getUsers, userName } = useUsersStore();
 
   const handleKeyDown = (e) => {
     const index = AVAILABLE_MOVIES.indexOf(e.key);
@@ -92,15 +94,15 @@ export const Game = ({ userName }) => {
     const updateScore = async () => {
       try {
         await addScore(userName, score);
+        await getUsers();
       } catch (error) {
         setError(error);
       }
     };
     if (gameOver) {
       updateScore();
-      
     }
-  }, [gameOver, score, userName]);
+  }, [gameOver, getUsers, score, userName]);
 
   const restart = () => {
     setGameOver(false);

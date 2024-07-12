@@ -1,32 +1,31 @@
 .cell {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--color-primary);
-    margin: 2px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-primary);
+  margin: 2px;
 
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
-border-radius: 50%;
-  }
-  .food1 {
-    background-color: var(--color-accent);
-  }
-  .food5{
-    background-color: var(--color-error)
-  }
-  .food10{
-    background-color: var(--color-food)
-  }
-  .snake {
-    background-color: var(--color-snake);
- 
-  }
-  .head {
-    position: relative;
-  }
-  
-  .icon {
-    font-size: 2rem; 
-  }
+  border-radius: 50%;
+}
+.food1 {
+  background-color: var(--color-accent);
+}
+.food5 {
+  background-color: var(--color-error);
+}
+.food10 {
+  background-color: var(--color-food);
+}
+.snake {
+  background-color: var(--color-snake);
+}
+.head {
+  position: relative;
+}
+
+.icon {
+  font-size: 2rem;
+}

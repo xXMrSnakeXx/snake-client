@@ -1,5 +1,7 @@
+import { useUsersStore } from "../../store/useUsersStore";
 import css from "./UserList.module.css";
-export const UserList = ({ users }) => {
+export const UserList = () => {
+  const { users } = useUsersStore();
   return (
     <div>
       <h2 className={css.title}>Player rating</h2>

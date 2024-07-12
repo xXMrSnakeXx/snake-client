@@ -8,18 +8,18 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    border:"none",
+    border: "none",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "var(--color-grey)"
+    backgroundColor: "var(--color-grey)",
   },
-  overlay:{
-    backgroundColor: 'rgba(0,0,0, 0.5) '
-  }
+  overlay: {
+    backgroundColor: "rgba(0,0,0, 0.5) ",
+  },
 };
 
 Modal.setAppElement("#root");
 
-export const MyModal = ({ modalIsOpen, closeModal, handleSubmit }) => {
+export const MyModal = ({ modalIsOpen, closeModal }) => {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -29,7 +29,7 @@ export const MyModal = ({ modalIsOpen, closeModal, handleSubmit }) => {
       style={customStyles}
       contentLabel="Example Modal"
     >
-      <UserForm  onSubmit={handleSubmit}/>
+      <UserForm closeModal={closeModal} />
     </Modal>
   );
 };

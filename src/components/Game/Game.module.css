@@ -9,7 +9,7 @@
   box-shadow: var(--shadow-regular);
   margin-bottom: 20px;
 }
-.title{
+.title {
   margin-bottom: 15px;
   font-size: var(--font-large);
   color: var(--color-primary);

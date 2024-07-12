@@ -11,10 +11,26 @@ export const Cell = ({ type, isHead }) => {
         [css.head]: isHead,
       })}
     >
-      {isHead && <span className={css.icon}><GiSnakeBite /></span>}
-      {type==="food1" && <span className={css.icon}><GiPear /></span>}
-      {type==="food5" && <span className={css.icon}><GiShinyApple /></span>}
-      {type==="food10" && <span className={css.icon}><GiCherry /></span>}
+      {isHead && (
+        <span className={css.icon}>
+          <GiSnakeBite />
+        </span>
+      )}
+      {type === "food1" && (
+        <span className={css.icon}>
+          <GiPear />
+        </span>
+      )}
+      {type === "food5" && (
+        <span className={css.icon}>
+          <GiShinyApple />
+        </span>
+      )}
+      {type === "food10" && (
+        <span className={css.icon}>
+          <GiCherry />
+        </span>
+      )}
     </div>
   );
 };
