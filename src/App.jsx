@@ -13,7 +13,7 @@ import { useUsersStore } from "./store/useUsersStore";
 function App() {
   const [showModal, setShowModal] = useState(true);
 
-  const { loading, error, getUsers } = useUsersStore();
+  const { loading, error, getUsers, userName } = useUsersStore();
 
   useEffect(() => {
     getUsers();
@@ -25,13 +25,13 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header setShowModal={setShowModal} />
       <Section>
         {error && (
           <Heading error title={`Something went wrong...😐  ${error}`} />
         )}
         <Container>
-          {!error && !loading && (
+          {!error && !loading && !userName && (
             <MyModal modalIsOpen={showModal} closeModal={closeModal} />
           )}
 
