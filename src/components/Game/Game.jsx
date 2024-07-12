@@ -16,6 +16,7 @@ import {
   DEFAULT_CELL_VALUE,
   FOOD_TYPES,
 } from "../../constants/constants";
+import { getOppositeDirection } from "../../helpers/getOppositeDirection ";
 
 export const Game = () => {
   const {
@@ -46,14 +47,14 @@ export const Game = () => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       const index = AVAILABLE_MOVIES.indexOf(e.key);
-      if (index > -1) {
+      if (index > -1 && e.key !== getOppositeDirection(direction)) {
         e.preventDefault();
         setDirection(AVAILABLE_MOVIES[index]);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [setDirection]);
+  }, [direction, setDirection]);
 
   useEffect(() => {
     if (gameOver || pause || !userName) return;
@@ -122,12 +123,6 @@ export const Game = () => {
   }, [gameOver, getUsers, score, userName]);
 
   const restart = () => {
-    setGameOver(false);
-    setDirection(AVAILABLE_MOVIES[0]);
-    setScore(0);
-    setSpeed(500);
-    setSpeedLevel(1);
-    setSnake([[1, 1]]);
     resetScoreStore();
   };
   const tooglePause = () => {
