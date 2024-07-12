@@ -9,42 +9,51 @@ import { Heading } from "../Heading/Heading";
 import { Button } from "../Button/Button";
 import { addScore } from "../../services/api";
 import { useUsersStore } from "../../store/useUsersStore";
-
-const BOARD_SIZE = 10;
-const DEFAULT_CELL_VALUE = Array(BOARD_SIZE).fill(Array(BOARD_SIZE).fill(0));
-const AVAILABLE_MOVIES = ["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft"];
-
-const FOOD_TYPES = [
-  { type: "food1", points: 1 },
-  { type: "food5", points: 5 },
-  { type: "food10", points: 10 },
-];
+import { useScoreStore } from "../../store/useScoreStore";
+import {
+  AVAILABLE_MOVIES,
+  BOARD_SIZE,
+  DEFAULT_CELL_VALUE,
+  FOOD_TYPES,
+} from "../../constants/constants";
 
 export const Game = () => {
-  const [direction, setDirection] = useState(AVAILABLE_MOVIES[0]);
-  const [snake, setSnake] = useState([[1, 1]]);
-  const [food, setFood] = useState(generateFood(BOARD_SIZE, snake, FOOD_TYPES));
-  const [score, setScore] = useState(0);
-  const [speed, setSpeed] = useState(500);
-  const [nextSpeedIncrease, setNextSpeedIncrease] = useState(50);
-  const [speedLevel, setSpeedLevel] = useState(1);
-  const [gameOver, setGameOver] = useState(false);
-  const [pause, setPause] = useState(false);
-  const [error, setError] = useState(null);
+  const {
+    score,
+    setScore,
+    direction,
+    setDirection,
+    snake,
+    setSnake,
+    speed,
+    setSpeed,
+    nextSpeedIncrease,
+    setNextSpeedIncrease,
+    speedLevel,
+    setSpeedLevel,
+    resetScoreStore,
+    pause,
+    setPause,
+    gameOver,
+    setGameOver,
+  } = useScoreStore();
   const { getUsers, userName } = useUsersStore();
 
-  const handleKeyDown = (e) => {
-    const index = AVAILABLE_MOVIES.indexOf(e.key);
-    if (index > -1) {
-      e.preventDefault();
-      setDirection(AVAILABLE_MOVIES[index]);
-    }
-  };
+  const [food, setFood] = useState(generateFood(BOARD_SIZE, snake, FOOD_TYPES));
+
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      const index = AVAILABLE_MOVIES.indexOf(e.key);
+      if (index > -1) {
+        e.preventDefault();
+        setDirection(AVAILABLE_MOVIES[index]);
+      }
+    };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [setDirection]);
 
   useEffect(() => {
     if (gameOver || pause || !userName) return;
@@ -68,9 +77,9 @@ export const Game = () => {
         const newScore = score + food.points;
         setScore(newScore);
         if (newScore >= nextSpeedIncrease) {
-          setSpeed((prevSpeed) => Math.max(prevSpeed - 50, 100));
-          setNextSpeedIncrease((prevSpeedIncrease) => prevSpeedIncrease + 50);
-          setSpeedLevel((prevLevel) => prevLevel + 1);
+          setSpeed(Math.max(speed - 50, 100));
+          setNextSpeedIncrease(nextSpeedIncrease + 50);
+          setSpeedLevel(speedLevel + 1);
         }
         setFood(generateFood(BOARD_SIZE, snake, FOOD_TYPES));
       }
@@ -80,13 +89,21 @@ export const Game = () => {
     return () => clearInterval(interval);
   }, [
     direction,
-    food,
+    food.points,
+    food.position,
     gameOver,
     nextSpeedIncrease,
     pause,
     score,
+    setGameOver,
+    setNextSpeedIncrease,
+    setScore,
+    setSnake,
+    setSpeed,
+    setSpeedLevel,
     snake,
     speed,
+    speedLevel,
     userName,
   ]);
 
@@ -111,9 +128,10 @@ export const Game = () => {
     setSpeed(500);
     setSpeedLevel(1);
     setSnake([[1, 1]]);
+    resetScoreStore();
   };
   const tooglePause = () => {
-    setPause((prevPause) => !prevPause);
+    setPause(!pause);
   };
 
   return (
